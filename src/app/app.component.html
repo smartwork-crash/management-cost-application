@@ -1,0 +1,95 @@
+<form id="input-form" [formGroup]="managementForm" (ngSubmit)="getManagementDetail($event)">
+  <mat-card style="background: aqua;">
+    <mat-card-header>
+      <mat-card-title>
+        Manage Team
+        <button id="save" type="submit" mat-raised-button class="button">Save
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion class="mat-elevation-z8" multi>
+        <ng-container formArrayName="group">
+          <mat-expansion-panel style="background: darkgrey;"
+            *ngFor="let groupForm of this.managementForm.controls.group?.controls; let groupIndex = index; last as groupLast"
+            [formGroupName]="groupIndex" [expanded]=true>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-form-field>
+                  <input matInput name="groupName" placeholder="Group Name" id="groupName" type="text"
+                    formControlName='groupName'>
+                </mat-form-field>
+                {{groupIndexs}}
+              </mat-panel-title>
+              <mat-panel-description>
+                <button mat-raised-button *ngIf="groupLast" style="margin-right: 2px;" class="orange"
+                  (click)="addForm('group',groupIndex,managerIndex)" type="button">Add
+                  Group</button>
+                <button mat-raised-button class="red" type="button" matTooltip="Remove Designee"
+                  (click)="removeForm('group',groupIndex,managerIndex,memberIndex)">
+                  Remove Group</button>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-container formArrayName="manager">
+              <div style="background-color: lightgreen;margin-bottom: 10px;"
+                *ngFor="let managerForm of managementForm.get('group')['controls'][groupIndex].get('manager')['controls']; let managerIndex = index; last as managerLast"
+                [formGroupName]="managerIndex">
+                <mat-grid-list cols="2" rowHeight="80px">
+                  <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                      <mat-label>
+                        Manager Name
+                      </mat-label>
+                      <input matInput name="manager" id="manager" type="text" formControlName='managerName'>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <button mat-raised- *ngIf="managerLast" style="margin-right: 2px;" class="orange"
+                      (click)="addForm('manager',groupIndex)" type="button">Add Manager</button>
+                    <button mat-raised-button class="red" type="button" matTooltip="Remove Designee"
+                      (click)="removeForm('manager',groupIndex,managerIndex)">
+                      Remove Manager</button>
+                  </mat-grid-tile>
+                </mat-grid-list>
+                <ng-container formArrayName="member">
+                  <mat-grid-list style="background-color: white; margin: 5px; border-radius: 20px;" cols="3"
+                    rowHeight="80px"
+                    *ngFor="let memberForm of managementForm.get('group')['controls'][groupIndex].get('manager')['controls'][managerIndex].get('member')['controls']; let memberIndex = index; last as last"
+                    [formGroupName]="memberIndex">
+                    <mat-grid-tile>
+                      <mat-form-field appearance="outline">
+                        <mat-label>
+                          Member Name
+                        </mat-label>
+                        <input matInput name="memberName" id="memberName" type="text" formControlName='memberName'>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                      <mat-form-field appearance="outline">
+                        <mat-label>
+                          Member Type
+                        </mat-label>
+                        <mat-select matInput name="memberType" id="memberType" type="text" formControlName='memberType'>
+                          <mat-option *ngFor="let type of memberTypesOption" [value]="type.name">{{type.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                      <button mat-raised-button style="margin-right: 2px;" class="orange"
+                        (click)="addForm('member',groupIndex,managerIndex)" type="button" *ngIf="last">Add
+                        Member</button>
+                      <button mat-raised-button class="red" type="button" matTooltip="Remove Designee"
+                        (click)="removeForm('member',groupIndex,managerIndex,memberIndex)">
+                        Remove Member</button>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </ng-container>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</form>

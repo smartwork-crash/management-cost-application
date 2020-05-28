@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-card-header-text {
+    width: 100% !important;
+  }
+
+  .orange {
+    background-color: #d79922 !important;
+    height: 50px;
+    margin-top: 3px !important;
+  }
+  
+  .default-button {
+    background-color: rgb(77, 80, 104);
+    color: aliceblue;
+    margin-top: 3px !important;
+  }
+  
+  .green {
+    background-color: #3aafa9 !important;
+    height: 50px;
+    margin-top: 3px !important;
+  }
+  
+  .red {
+    background-color: #b23850 !important;
+    height: 50px;
+    margin-top: 3px !important;
+  }
